@@ -8,7 +8,7 @@ def getSlotName(i, s):
 	return 'i'+`i`+'s'+`s`
 
 def main():
-	if(len(sys.argv) < 5):
+	if(len(sys.argv) != 5):
 		print 'Usage: python tdma.py <# ports> <# ReCOP> <# JOPs> <# Slots to check>'
 		sys.exit(1)
 
