@@ -2,6 +2,7 @@ from z3 import *
 import math
 import sys
 import itertools
+import datetime
 
 
 def getSlotName(i, s):
@@ -13,6 +14,7 @@ def main():
 		sys.exit(1)
 
 	# Declaring a z3 solver
+	st = datetime.datetime.now()
 	solver = Tactic('qflia').solver()
 
 	np = int(sys.argv[1]) # number of ports
@@ -65,9 +67,12 @@ def main():
 	ns = [smtv[i] for i in smtv if i.startswith('match')]
 	solver.add(reduce(lambda x, y: x+y, [i for i in ns], 0) <= obj)
 
+	print 'formulation time : ' + str(datetime.datetime.now() - st)
+	st = datetime.datetime.now()
 #  print solver.sexpr()
 #  sys.exit(1)
 	print solver.check()
+	print 'solving time : ' + str(datetime.datetime.now() - st)
 	print solver.model()
 
 if __name__ == "__main__":
